@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甜蜜空间 - 个人资料</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body class="theme-starry">
+    <div class="page-container">
+        <header class="main-header">
+            <div class="theme-switcher">
+                <button class="theme-toggle-btn" id="themeToggleBtn">
+                    <i>🎨</i>
+                </button>
+                <div class="theme-icons">
+                    <div class="theme-icon" data-theme="starry" title="星空梦幻风">
+                        <span class="theme-preview starry-preview"></span>
+                    </div>
+                    <div class="theme-icon" data-theme="cool" title="非主流酷炫浪漫风">
+                        <span class="theme-preview cool-preview"></span>
+                    </div>
+                    <div class="theme-icon" data-theme="pink" title="粉色系浪漫风">
+                        <span class="theme-preview pink-preview"></span>
+                    </div>
+                </div>
+            </div>
+            <a href="home.html" class="back-button">返回首页</a>
+        </header>
+
+        <main class="profile-content">
+            <div class="profile-top-section">
+                <!-- 用户信息卡片 -->
+                <section class="profile-card glass-effect">
+                    <div class="profile-card-content">
+                        <div class="profile-info-container">
+                            <!-- 头像和名字区域 -->
+                            <div class="profile-header-section">
+                                <div class="profile-avatar-wrapper">
+                                    <div class="profile-avatar-container">
+                                        <img src="images/default-avatar.png" alt="个人头像" id="profileAvatar" style="cursor: pointer;">
+                                        <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                                    </div>
+                                    <div class="profile-name-section">
+                                        <h1 id="profileName" class="editable" title="点击修改">罗枭</h1>
+                                        <p id="profileMotto" class="profile-motto editable" title="点击编辑个性签名">快乐来自于努力与勤奋</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 详细信息区域 -->
+                            <div class="profile-details">
+                                <!-- 生日和生肖信息 -->
+                                <div class="info-grid">
+                                    <!-- 左侧生日信息 -->
+                                    <div class="info-column">
+                                        <div class="birthday-info">
+                                            <div class="birthday-line">国历：<span id="birthday" class="editable" title="点击修改">1997-01-29</span></div>
+                                            <div class="birthday-line">农历：<span id="lunarBirthday" class="editable" title="点击修改">1996-12-21</span></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 右侧生肖和星座 -->
+                                    <div class="info-column">
+                                        <div class="zodiac-info">
+                                            <div class="info-row">
+                                                <div class="info-label">生肖：</div>
+                                                <span id="chineseZodiac" class="editable" title="点击修改">子鼠</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <div class="info-label">星座：</div>
+                                                <span id="zodiac" class="editable" title="点击修改">天秤座</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 爱情宣言 -->
+                                <div class="declaration-row">
+                                    <p id="loveDeclaration" class="editable" title="点击修改">爱情宣言（点击可编辑）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 今日心愿墙 -->
+                <section class="wish-wall-card glass-effect">
+                    <h2>今日心愿墙</h2>
+                    <div class="wish-list">
+                        <div class="wish-input-container">
+                            <textarea id="newWish" placeholder="写下你今天的心愿..." maxlength="100"></textarea>
+                            <button id="addWish" class="btn-create">发布</button>
+                        </div>
+                        <div id="wishList" class="wishes-container">
+                            <!-- 心愿将通过JavaScript动态添加 -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 相册卡片 -->
+            <section class="albums-card glass-effect">
+                <div class="section-header">
+                    <h2>我的相册</h2>
+                    <button id="createAlbum" class="btn-create">创建相册</button>
+                </div>
+                <div class="albums-grid" id="albumsContainer">
+                    <div class="album-item add-album">
+                        <div class="album-add-icon">+</div>
+                        <p>添加相册</p>
+                    </div>
+                    <!-- 相册列表将通过 JavaScript 动态添加 -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+                <p>我们的爱情空间 &copy; 罗枭<span class="animated-heart" style="color: #ff0000; display: inline-block; animation: heartPulse 0.8s infinite; font-size: 20px; transform-origin: center; position: relative; top: 2px;">♥</span>赖姣姣</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 创建相册弹窗 -->
+    <div class="modal" id="createAlbumModal">
+        <div class="modal-content glass-effect">
+            <span class="close-btn" id="closeAlbumModal">&times;</span>
+            <div class="modal-header">
+                <h3>创建相册</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="albumName">相册名称</label>
+                    <input type="text" id="albumName" placeholder="请输入相册名称..." required>
+                </div>
+                <div class="form-group">
+                    <label for="albumDescription">相册描述</label>
+                    <textarea id="albumDescription" placeholder="请输入相册描述..." rows="3"></textarea>
+                </div>
+                <div class="form-group" id="coverGroup">
+                    <label>相册封面</label>
+                    <div class="upload-area">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <i class="upload-icon">📷</i>
+                            <span>点击上传封面</span>
+                        </div>
+                        <div class="cover-preview" id="coverPreviewContainer" style="display: none;">
+                            <img id="coverPreview" src="" alt="封面预览">
+                            <button type="button" id="changeCoverBtn">更换</button>
+                        </div>
+                        <input type="file" id="coverUpload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelAlbumBtn">取消</button>
+                <button type="button" class="btn-primary">创建</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 提示弹窗 -->
+    <div class="modal" id="alertModal">
+        <div class="modal-content glass-effect">
+            <span class="close-btn" id="closeAlertModal">&times;</span>
+            <div class="modal-body">
+                <div class="alert-icon" id="alertIcon">✅</div>
+                <h3 id="alertTitle">成功</h3>
+                <p id="alertMessage">操作已完成</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" id="alertConfirmBtn">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/theme-switcher.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html> 
